@@ -1,0 +1,16 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- Primary -->
+    <Color x:Key="PrimaryColor">#121212</Color>
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource PrimaryColor}"/>
+
+    <!-- Search bar -->
+    <Color x:Key="SearchBarColor">#212121</Color>
+    <SolidColorBrush x:Key="SearchBarBrush" Color="{StaticResource SearchBarColor}"/>
+    
+    <!-- Text -->
+    <Color x:Key="TextColor">White</Color>
+    <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}"/>
+
+</ResourceDictionary>
