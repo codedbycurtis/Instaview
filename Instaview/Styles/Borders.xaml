@@ -1,0 +1,29 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="Colors.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+    <Style x:Key="SearchBarBorder" TargetType="{x:Type Border}">
+        <Setter Property="Background" Value="{StaticResource SearchBarBrush}"/>
+        <Setter Property="CornerRadius" Value="3"/>
+        <Setter Property="MaxWidth" Value="600"/>
+        <Setter Property="Height" Value="42"/>
+        <Setter Property="BorderThickness" Value="2"/>
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0, 0" EndPoint="1, 1">
+                            <GradientStop Color="#4A4AED" Offset="0"/>
+                            <GradientStop Color="#BD00BD" Offset="0.5"/>
+                            <GradientStop Color="#FF6333" Offset="1"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+</ResourceDictionary>

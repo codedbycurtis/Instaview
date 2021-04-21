@@ -15,6 +15,12 @@ namespace Instaview
         /// </summary>
         public static string Version { get; } = typeof(App).Assembly.GetName().Version.ToString(3);
 
+        /// <summary>
+        /// The title of the application.
+        /// </summary>
+        public static string Title { get; } = $"Instaview {Version}";
+
+        /// <inheritdoc />
         protected override void OnStartup(StartupEventArgs e)
         {
             // Check if a settings file exists, and if not, create one

@@ -12,5 +12,25 @@
     <!-- Text -->
     <Color x:Key="TextColor">White</Color>
     <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}"/>
+    
+    <!-- Button hover -->
+    <Color x:Key="ButtonHoverColor">#535353</Color>
+    <SolidColorBrush x:Key="ButtonHoverBrush" Color="{StaticResource ButtonHoverColor}"/>
+    
+    <!-- Button press -->
+    <Color x:Key="ButtonPressColor">#3A3A3A</Color>
+    <SolidColorBrush x:Key="ButtonPressBrush" Color="{StaticResource ButtonPressColor}"/>
+    
+    <!-- ToolTip background -->
+    <Color x:Key="ToolTipBackgroundColor">#6C6C6C</Color>
+    <SolidColorBrush x:Key="ToolTipBackgroundBrush" Color="{StaticResource ToolTipBackgroundColor}"/>
+
+    <!-- Profile panel primary -->
+    <Color x:Key="ProfilePanelPrimaryColor">#212121</Color>
+    <SolidColorBrush x:Key="ProfilePanelPrimaryBrush" Color="{StaticResource ProfilePanelPrimaryColor}"/>
+
+    <!-- Profile panel secondary -->
+    <Color x:Key="ProfilePanelSecondaryColor">#2B2B2B</Color>
+    <SolidColorBrush x:Key="ProfilePanelSecondaryBrush" Color="{StaticResource ProfilePanelSecondaryColor}"/>
 
 </ResourceDictionary>

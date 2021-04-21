@@ -1,11 +1,13 @@
 ﻿using System.Windows.Input;
-using System.IO;
+using System.Collections.Generic;
+using static System.Environment;
 using Microsoft.Win32;
-using Instasharp.Net;
+using Instasharp;
 using Instasharp.Profiles;
+using Instasharp.Exceptions;
 using Instaview.ViewModels.Base;
-using Instaview.Models;
 using Instaview.Internal;
+using Instasharp.Search;
 
 namespace Instaview.ViewModels
 {
@@ -13,29 +15,50 @@ namespace Instaview.ViewModels
     {
         #region Members
 
-        private readonly InstagramWebClient _instagramClient;
+        private readonly InstagramClient _instagramClient;
 
         #endregion
 
         #region Properties
 
-        public string Title
+        private bool _isProfileOnDisplay;
+        public bool IsProfileOnDisplay
         {
-            get => $"Instaview {App.Version}";
+            get => _isProfileOnDisplay;
+            set => SetProperty(ref _isProfileOnDisplay, value);
         }
 
-        private string _username;
-        public string Username
+        private bool _profileHasWebsite;
+        public bool ProfileHasWebsite
         {
-            get => _username;
-            set => SetProperty(ref _username, value);
+            get => _profileHasWebsite;
+            set => SetProperty(ref _profileHasWebsite, value);
+        }
+
+        private string _usernameOrUrl;
+        public string UsernameOrUrl
+        {
+            get => _usernameOrUrl;
+            set => SetProperty(ref _usernameOrUrl, value);
         }
 
         private Profile _profile;
         public Profile Profile
         {
             get => _profile;
-            set => SetProperty(ref _profile, value);
+            set
+            {
+                SetProperty(ref _profile, value);
+                IsProfileOnDisplay = true;
+                ProfileHasWebsite = !string.IsNullOrEmpty(Profile.Website);
+            }
+        }
+
+        private IReadOnlyList<ProfileSearchResult> _requestedProfiles;
+        public IReadOnlyList<ProfileSearchResult> RequestedProfiles
+        {
+            get => _requestedProfiles;
+            set => SetProperty(ref _requestedProfiles, value);
         }
 
         #endregion
@@ -56,27 +79,33 @@ namespace Instaview.ViewModels
         {
             _instagramClient = new(Global.Settings.SessionID);
 
-            SearchCommand = new RelayCommand(async () => { Profile = await _instagramClient.GetProfileMetadataAsync(Username); });
-
-            DownloadCommand = new RelayCommand(async () => { await _instagramClient.DownloadProfilePictureAsync(Profile, $"{Profile.Handle}.jpg"); });
-        }
-
-        #endregion
-
-        #region Helper Methods
-
-        private void ShowFileDialog()
-        {
-            SaveFileDialog dialog = new()
+            SearchCommand = new RelayCommand(async () =>
             {
-                AddExtension = true,
-                FileName = $"{Username}.jpg",
-                Filter = "JPEG Image (*.jpg)|*.jpg|All Files (*.*)|*.*",
-                Title = "Download Profile Picture",
-                ValidateNames = true,
-            };
+                if (!string.IsNullOrEmpty(UsernameOrUrl))
+                {
+                    try { Profile = await _instagramClient.GetProfileMetadataAsync(UsernameOrUrl); }
+                    catch (ProfileNotFoundException) { } // TODO: Implement dialog for exceptions
+                }
+            });
 
-            dialog.ShowDialog();
+            DownloadCommand = new RelayCommand(async () =>
+            {
+                SaveFileDialog dialog = new()
+                {
+                    AddExtension = true,
+                    FileName = $"{Profile.Handle}.jpg",
+                    Filter = "JPEG Image (*.jpg)|*.jpg|All Files (*.*)|*.*",
+                    InitialDirectory = GetFolderPath(SpecialFolder.DesktopDirectory),
+                    Title = "Download Profile Picture",
+                    ValidateNames = true,
+                };
+
+                if (dialog.ShowDialog() is true)
+                {
+                    var path = dialog.FileName;
+                    await _instagramClient.DownloadProfilePictureAsync(Profile, path);
+                }
+            });
         }
 
         #endregion
