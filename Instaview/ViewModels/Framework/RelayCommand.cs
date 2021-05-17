@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace Instaview.ViewModels.Base
+namespace Instaview.ViewModels.Framework
 {
     /// <summary>
     /// A simple command that performs an action.
@@ -13,7 +13,7 @@ namespace Instaview.ViewModels.Base
         /// <summary>
         /// The action to perform.
         /// </summary>
-        private readonly Action _action;
+        private Action _action;
 
         #endregion
 
@@ -38,7 +38,7 @@ namespace Instaview.ViewModels.Base
         public void Execute(object parameter) => _action();
 
         /// <summary>
-        /// Default constructor
+        /// Initializes a new instance of <see cref="RelayCommand"/> with the specified <paramref name="action"/>.
         /// </summary>
         /// <param name="action">The action to perform.</param>
         public RelayCommand(Action action) => _action = action;
@@ -56,7 +56,7 @@ namespace Instaview.ViewModels.Base
         /// <summary>
         /// The action to perform.
         /// </summary>
-        private readonly Action<T> _action;
+        private Action<T> _action;
 
         #endregion
 
@@ -81,7 +81,7 @@ namespace Instaview.ViewModels.Base
         public void Execute(object parameter) => _action((T)parameter);
 
         /// <summary>
-        /// Default constructor
+        /// Initializes a new instance of <see cref="RelayCommand{T}"/> with the specified <paramref name="action"/>.
         /// </summary>
         /// <param name="action">The action to perform.</param>
         public RelayCommand(Action<T> action) => _action = action;

@@ -5,6 +5,9 @@ using System.Windows.Data;
 
 namespace Instaview.Converters
 {
+    /// <summary>
+    /// Converts a <see cref="bool"/> to a <see cref="Visibility"/> value and vice-versa.
+    /// </summary>
     public sealed class BoolToVisibilityConverter : IValueConverter
     {
         public static BoolToVisibilityConverter Instance { get; } = new();

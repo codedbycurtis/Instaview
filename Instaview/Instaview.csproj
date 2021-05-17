@@ -10,12 +10,16 @@
     <Description></Description>
     <Product>Instaview</Product>
     <PackageId>Instaview</PackageId>
+    <ApplicationIcon>Images\Icon\Instaview Logo.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove="Images\arrow-right.png" />
     <None Remove="Images\download.png" />
+    <None Remove="Images\Icon\Instaview Logo.ico" />
     <None Remove="Images\lock.png" />
+    <None Remove="Images\menu.png" />
+    <None Remove="Images\verified.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,7 +33,10 @@
   <ItemGroup>
     <Resource Include="Images\arrow-right.png" />
     <Resource Include="Images\download.png" />
+    <Resource Include="Images\Icon\Instaview Logo.ico" />
     <Resource Include="Images\lock.png" />
+    <Resource Include="Images\menu.png" />
+    <Resource Include="Images\verified.png" />
   </ItemGroup>
 
   <ItemGroup>

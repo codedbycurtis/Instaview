@@ -17,161 +17,185 @@
         <viewModels:MainViewModel/>
     </Window.DataContext>
 
-    <Grid Background="{StaticResource PrimaryBrush}">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="60"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        <Border Padding="10, 0">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Grid Background="{StaticResource PrimaryBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <Border Grid.Row="0"
-                    Style="{StaticResource SearchBarBorder}">
-                <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBox Name="UsernameInputTextBox"
-                             Grid.Column="0"
-                             Text="{Binding UsernameOrUrl, UpdateSourceTrigger=PropertyChanged}"
-                             FontSize="20"
-                             Padding="8, 0"
-                             VerticalAlignment="Center">
-                        <TextBox.InputBindings>
-                            <KeyBinding Key="Return" Command="{Binding SearchCommand}"/>
-                        </TextBox.InputBindings>
-                    </TextBox>
-                    <Border Grid.Column="1"
-                            Padding="4">
+                    Padding="10, 0">
+                <Border Style="{StaticResource SearchBarBorder}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBox Name="UsernameInputTextBox"
+                                 Grid.Column="0"
+                                 Text="{Binding UsernameOrUrl, UpdateSourceTrigger=PropertyChanged}"
+                                 FontSize="20"
+                                 Padding="8, 0"
+                                 VerticalAlignment="Center">
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Return" Command="{Binding SearchCommand}"/>
+                            </TextBox.InputBindings>
+                        </TextBox>
                         <Button Style="{StaticResource SimpleButton}"
                                 Grid.Column="1"
                                 Command="{Binding SearchCommand}"
                                 ToolTip="Search">
                             <Image Source="../Images/arrow-right.png"
-                                   Stretch="Uniform"/>
+                                   Stretch="None"/>
                         </Button>
-                    </Border>
-                </Grid>
-            </Border>
-        </Border>
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Border Grid.Row="0"
-                    Padding="10, 0"
-                    Visibility="{Binding IsProfileOnDisplay, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}">
-                <StackPanel>
-                    <Border Padding="8"
-                            Background="{StaticResource ProfilePanelPrimaryBrush}"
-                            CornerRadius="3, 3, 0, 0">
-                        <StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock Text="{Binding Profile.FullName}"
-                                           FontSize="28"
-                                           FontWeight="Medium"
-                                           Padding="0, 0, 8, 0"/>
-                                <Image Source="../Images/lock.png"
-                                       Stretch="None"
-                                       Visibility="{Binding Profile.IsPrivate, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"
-                                       ToolTip="Private Account"/>
-                            </StackPanel>
-                            <TextBlock Text="{Binding Profile.Handle}"
-                                       FontSize="20"
-                                       FontWeight="Light"/>
-                        </StackPanel>
-                    </Border>
-                    <Border Background="{StaticResource ProfilePanelSecondaryBrush}"
-                            Padding="8">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBlock Grid.Row="0"
-                                       Grid.Column="0"
-                                       Text="Posts"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontSize="20"
-                                       FontWeight="Medium"/>
-                            <TextBlock Grid.Row="0"
-                                       Grid.Column="1"
-                                       Text="Followers"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontSize="20"
-                                       FontWeight="Medium"/>
-                            <TextBlock Grid.Row="0"
-                                       Grid.Column="2"
-                                       Text="Following"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontSize="20"
-                                       FontWeight="Medium"/>
-                            <TextBlock Grid.Row="1"
-                                       Grid.Column="0"
-                                       Text="{Binding Profile.PostCount}"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontSize="20"
-                                       FontWeight="Light"/>
-                            <TextBlock Grid.Row="1"
-                                       Grid.Column="1"
-                                       Text="{Binding Profile.FollowerCount}"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontSize="20"
-                                       FontWeight="Light"/>
-                            <TextBlock Grid.Row="1"
-                                       Grid.Column="2"
-                                       Text="{Binding Profile.FollowingCount}"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       FontSize="20"
-                                       FontWeight="Light"/>
-                        </Grid>
-                    </Border>
-                    <Border Padding="8"
-                            Background="{StaticResource ProfilePanelPrimaryBrush}"
-                            CornerRadius="0, 0, 3, 3">
-                        <StackPanel>
-                            <TextBlock Text="{Binding Profile.Bio}"
-                                       FontSize="20"
-                                       FontWeight="Light"/>
-                            <TextBlock Text="{Binding Profile.Website}"
-                                       FontSize="20"
-                                       TextDecorations="Underline"
-                                       Visibility="{Binding ProfileHasWebsite, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"/>
-                        </StackPanel>
-                    </Border>
-                </StackPanel>
-            </Border>
-            <StackPanel Grid.Row="1"
-                        VerticalAlignment="Center">
-                <Border Padding="6">
-                    <Image Source="{Binding Profile.ProfilePictureUri}"
-                           MaxWidth="320"
-                           MaxHeight="320"/>
+                    </Grid>
                 </Border>
-                <Button Style="{StaticResource SimpleButton}"
-                        Command="{Binding DownloadCommand}"
-                        HorizontalAlignment="Center"
-                        Padding="6"
+            </Border>
+            <Menu Grid.Row="0"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Center"
+                  Style="{StaticResource GlobalMenuStyle}">
+                <MenuItem ToolTip="Menu">
+                    <MenuItem.Header>
+                        <Image Source="../Images/menu.png"
+                               Stretch="None"/>
+                    </MenuItem.Header>
+                    <MenuItem Header="About"
+                              Command="{Binding ShowAboutCommand}"/>
+                    <MenuItem Header="Settings"
+                              Command="{Binding ShowSettingsCommand}"/>
+                </MenuItem>
+            </Menu>
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Grid.Row="0"
+                        Padding="10, 0"
                         Visibility="{Binding IsProfileOnDisplay, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="../Images/download.png"/>
-                        <TextBlock Text="Download"
-                                   FontSize="18"
-                                   Padding="6, 0, 0, 0"/>
+                    <StackPanel>
+                        <Border Padding="8"
+                                Background="{StaticResource ProfilePanelPrimaryBrush}"
+                                CornerRadius="3, 3, 0, 0">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Profile.FullName}"
+                                               FontSize="28"
+                                               FontWeight="Medium"
+                                               Padding="0, 0, 8, 0"/>
+                                    <Image Source="../Images/lock.png"
+                                           Stretch="None"
+                                           Visibility="{Binding Profile.IsPrivate, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"
+                                           ToolTip="Private Account"/>
+                                    <Image Source="../Images/verified.png"
+                                           Stretch="None"
+                                           Visibility="{Binding Profile.IsVerified, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"
+                                           ToolTip="Verified"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding Profile.Handle}"
+                                           FontSize="20"
+                                           FontWeight="Light"/>
+                                <TextBlock Text="{Binding Profile.BusinessCategoryName}"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           FontSize="20"
+                                           Visibility="{Binding Profile.IsBusinessAccount, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"/>
+                            </StackPanel>
+                        </Border>
+                        <Border Background="{StaticResource ProfilePanelSecondaryBrush}"
+                                Padding="8">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="0"
+                                           Text="Posts"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="20"
+                                           FontWeight="Medium"/>
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="1"
+                                           Text="Followers"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="20"
+                                           FontWeight="Medium"/>
+                                <TextBlock Grid.Row="0"
+                                           Grid.Column="2"
+                                           Text="Following"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="20"
+                                           FontWeight="Medium"/>
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="0"
+                                           Text="{Binding Profile.PostCount}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="20"
+                                           FontWeight="Light"/>
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="1"
+                                           Text="{Binding Profile.FollowerCount}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="20"
+                                           FontWeight="Light"/>
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="2"
+                                           Text="{Binding Profile.FollowingCount}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"
+                                           FontSize="20"
+                                           FontWeight="Light"/>
+                            </Grid>
+                        </Border>
+                        <Border Padding="8"
+                                Background="{StaticResource ProfilePanelPrimaryBrush}"
+                                CornerRadius="0, 0, 3, 3">
+                            <StackPanel>
+                                <TextBlock Text="{Binding Profile.Bio}"
+                                           FontSize="20"
+                                           FontWeight="Light"
+                                           TextWrapping="Wrap"
+                                           Visibility="{Binding ProfileHasBio, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"/>
+                                <TextBlock Text="{Binding Profile.Website}"
+                                           FontSize="20"
+                                           TextDecorations="Underline"
+                                           Visibility="{Binding ProfileHasWebsite, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}"/>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
-                </Button>
-            </StackPanel>
+                </Border>
+                <StackPanel Grid.Row="1"
+                            VerticalAlignment="Center">
+                    <Border Padding="6">
+                        <Image Source="{Binding Profile.ProfilePictureUri}"
+                               MaxWidth="320"
+                               MaxHeight="320"/>
+                    </Border>
+                    <Button Style="{StaticResource SimpleButton}"
+                            Command="{Binding DownloadCommand}"
+                            HorizontalAlignment="Center"
+                            Padding="6"
+                            Visibility="{Binding IsProfileOnDisplay, Converter={x:Static converters:BoolToVisibilityConverter.Instance}}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="../Images/download.png"/>
+                            <TextBlock Text="Download"
+                                       FontSize="18"
+                                       Padding="6, 0, 0, 0"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
         </Grid>
-    </Grid>
+    </ScrollViewer>
 </Window>

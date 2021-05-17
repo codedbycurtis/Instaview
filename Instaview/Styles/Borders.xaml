@@ -4,13 +4,22 @@
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Colors.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    
-    <Style x:Key="SearchBarBorder" TargetType="{x:Type Border}">
+
+    <Style x:Key="TextEntryBorder" TargetType="{x:Type Border}">
         <Setter Property="Background" Value="{StaticResource SearchBarBrush}"/>
         <Setter Property="CornerRadius" Value="3"/>
         <Setter Property="MaxWidth" Value="600"/>
         <Setter Property="Height" Value="42"/>
         <Setter Property="BorderThickness" Value="2"/>
+        <Setter Property="BorderBrush" Value="{StaticResource SearchBarBrush}"/>
+        <Style.Triggers>
+            <Trigger Property="IsKeyboardFocusWithin" Value="True">
+                <Setter Property="BorderBrush" Value="White"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="SearchBarBorder" TargetType="{x:Type Border}" BasedOn="{StaticResource TextEntryBorder}">
         <Style.Triggers>
             <Trigger Property="IsKeyboardFocusWithin" Value="True">
                 <Setter Property="BorderBrush">

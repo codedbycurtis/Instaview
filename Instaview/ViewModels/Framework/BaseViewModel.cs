@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace Instaview.ViewModels.Base
+namespace Instaview.ViewModels.Framework
 {
     /// <summary>
     /// Fires <see cref="PropertyChanged"/> events on demand.
@@ -21,20 +21,20 @@ namespace Instaview.ViewModels.Base
         public void NotifyPropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
         /// <summary>
-        /// Sets a property's value.
+        /// Updates a property's value and fires the <see cref="PropertyChanged"/> event.
         /// </summary>
         /// <typeparam name="T">The property's type.</typeparam>
         /// <param name="backingStore">The property's current value.</param>
         /// <param name="value">The new value to set.</param>
-        /// <param name="onPropertyChanged">The custom action to execute once the property's value changes.</param>
+        /// <param name="onPropertyChanged">Custom action that is executed once the property's value changes.</param>
         /// <param name="propertyName">The name of the property that called this method.</param>
         public void SetProperty<T>(ref T backingStore, T value, Action onPropertyChanged = null, [CallerMemberName] string propertyName = "")
         {
             if (!Equals(backingStore, value))
             {
                 backingStore = value;
-                NotifyPropertyChanged(propertyName);
                 onPropertyChanged?.Invoke();
+                NotifyPropertyChanged(propertyName);
             }
         }
     }

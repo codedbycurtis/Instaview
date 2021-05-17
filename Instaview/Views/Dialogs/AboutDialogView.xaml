@@ -1,0 +1,20 @@
+﻿<UserControl x:Class="Instaview.Views.Dialogs.AboutDialogView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Instaview.Views.Dialogs"
+             xmlns:dialogViewModels="clr-namespace:Instaview.ViewModels.Dialogs"
+             mc:Ignorable="d"
+             d:DataContext="{d:DesignInstance Type=dialogViewModels:AboutDialogViewModel}">
+    <Grid>
+        <Button Content="Close"
+                Command="{Binding CloseCommand}"
+                CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
+                Style="{StaticResource SimpleButton}"
+                TextBlock.FontSize="18"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Padding="6"/>
+    </Grid>
+</UserControl>

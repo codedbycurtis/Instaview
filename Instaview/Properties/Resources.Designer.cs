@@ -89,5 +89,35 @@ namespace Instaview.Properties {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] Instaview_Logo {
+            get {
+                object obj = ResourceManager.GetObject("Instaview_Logo", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] menu {
+            get {
+                object obj = ResourceManager.GetObject("menu", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] verified {
+            get {
+                object obj = ResourceManager.GetObject("verified", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

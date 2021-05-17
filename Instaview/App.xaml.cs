@@ -1,6 +1,5 @@
 ﻿using System.IO;
 using System.Windows;
-using Instaview.Internal;
 using Instaview.Models;
 
 namespace Instaview
@@ -16,20 +15,32 @@ namespace Instaview
         public static string Version { get; } = typeof(App).Assembly.GetName().Version.ToString(3);
 
         /// <summary>
-        /// The title of the application.
+        /// The title of this application.
         /// </summary>
         public static string Title { get; } = $"Instaview {Version}";
+
+        /// <summary>
+        /// The normalized path to the application's settings file.
+        /// </summary>
+        public static string SettingsFilePath { get; } = "settings.json";
+
+        /// <summary>
+        /// The application's global <see cref="Models.Settings"/>.
+        /// </summary>
+#pragma warning disable CA2211
+        public static Settings Settings;
+#pragma warning restore CA2211
 
         /// <inheritdoc />
         protected override void OnStartup(StartupEventArgs e)
         {
             // Check if a settings file exists, and if not, create one
-            if (!File.Exists(Global.SettingsFilePath))
+            if (!File.Exists(SettingsFilePath))
             {
-                Global.Settings = new();
-                Global.Settings.Save(Global.SettingsFilePath);
+                Settings = new();
+                Settings.Save(SettingsFilePath);
             }
-            else { Global.Settings = Settings.Load(Global.SettingsFilePath); }
+            else { Settings = Settings.Load(SettingsFilePath); }
 
             base.OnStartup(e); // Perform default startup procedures
         }

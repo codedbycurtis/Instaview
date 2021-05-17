@@ -1,0 +1,33 @@
+﻿<Window x:Class="Instaview.Views.Dialogs.DialogWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Instaview.Views.Dialogs"
+        mc:Ignorable="d"
+        Title="{Binding Title}" Height="300" Width="450"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="42"
+                      ResizeBorderThickness="10"/>
+    </WindowChrome.WindowChrome>
+
+    <Border Padding="6">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="42"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0"
+                   Text="{Binding Title}"
+                   FontSize="20"/>
+            <ContentControl Grid.Row="1"
+                        Name="ContentPresenter"
+                        Content="{Binding}"/>
+        </Grid>
+    </Border>
+
+</Window>

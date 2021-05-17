@@ -9,10 +9,14 @@
     <Color x:Key="SearchBarColor">#212121</Color>
     <SolidColorBrush x:Key="SearchBarBrush" Color="{StaticResource SearchBarColor}"/>
     
-    <!-- Text -->
-    <Color x:Key="TextColor">White</Color>
-    <SolidColorBrush x:Key="TextBrush" Color="{StaticResource TextColor}"/>
+    <!-- Text primary -->
+    <Color x:Key="TextPrimaryColor">White</Color>
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimaryColor}"/>
     
+    <!-- Text secondary -->
+    <Color x:Key="TextSecondaryColor">#9B9B9B</Color>
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondaryColor}"/>
+
     <!-- Button hover -->
     <Color x:Key="ButtonHoverColor">#535353</Color>
     <SolidColorBrush x:Key="ButtonHoverBrush" Color="{StaticResource ButtonHoverColor}"/>

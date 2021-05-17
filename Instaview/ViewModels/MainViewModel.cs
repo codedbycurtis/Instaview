@@ -5,9 +5,10 @@ using Microsoft.Win32;
 using Instasharp;
 using Instasharp.Profiles;
 using Instasharp.Exceptions;
-using Instaview.ViewModels.Base;
-using Instaview.Internal;
 using Instasharp.Search;
+using Instaview.ViewModels.Framework;
+using Instaview.Services;
+using Instaview.ViewModels.Dialogs;
 
 namespace Instaview.ViewModels
 {
@@ -16,6 +17,7 @@ namespace Instaview.ViewModels
         #region Members
 
         private readonly InstagramClient _instagramClient;
+        private readonly IDialogService _dialogService;
 
         #endregion
 
@@ -35,6 +37,13 @@ namespace Instaview.ViewModels
             set => SetProperty(ref _profileHasWebsite, value);
         }
 
+        private bool _profileHasBio;
+        public bool ProfileHasBio
+        {
+            get => _profileHasBio;
+            set => SetProperty(ref _profileHasBio, value);
+        }
+
         private string _usernameOrUrl;
         public string UsernameOrUrl
         {
@@ -50,23 +59,26 @@ namespace Instaview.ViewModels
             {
                 SetProperty(ref _profile, value);
                 IsProfileOnDisplay = true;
+                ProfileHasBio = !string.IsNullOrEmpty(Profile.Bio);
                 ProfileHasWebsite = !string.IsNullOrEmpty(Profile.Website);
             }
         }
 
-        private IReadOnlyList<ProfileSearchResult> _requestedProfiles;
-        public IReadOnlyList<ProfileSearchResult> RequestedProfiles
-        {
-            get => _requestedProfiles;
-            set => SetProperty(ref _requestedProfiles, value);
-        }
+        //private IReadOnlyList<ProfileSearchResult> _requestedProfiles;
+        //public IReadOnlyList<ProfileSearchResult> RequestedProfiles
+        //{
+        //    get => _requestedProfiles;
+        //    set => SetProperty(ref _requestedProfiles, value);
+        //}
 
         #endregion
 
         #region Commands
 
-        public ICommand SearchCommand { get; set; }
-        public ICommand DownloadCommand { get; set; }
+        public ICommand SearchCommand { get; }
+        public ICommand DownloadCommand { get; }
+        public ICommand ShowAboutCommand { get; }
+        public ICommand ShowSettingsCommand { get; }
 
         #endregion
 
@@ -77,20 +89,22 @@ namespace Instaview.ViewModels
         /// </summary>
         public MainViewModel()
         {
-            _instagramClient = new(Global.Settings.SessionID);
+            _instagramClient = new(App.Settings.SessionID);
+            _dialogService = new DialogService();
+
 
             SearchCommand = new RelayCommand(async () =>
             {
                 if (!string.IsNullOrEmpty(UsernameOrUrl))
                 {
                     try { Profile = await _instagramClient.GetProfileMetadataAsync(UsernameOrUrl); }
-                    catch (ProfileNotFoundException) { } // TODO: Implement dialog for exceptions
+                    catch (InstasharpException ex) { _dialogService.OpenDialog(new ExceptionDialogViewModel("Something went wrong", ex.Message)); }
                 }
             });
 
             DownloadCommand = new RelayCommand(async () =>
             {
-                SaveFileDialog dialog = new()
+                SaveFileDialog saveFileDialog = new()
                 {
                     AddExtension = true,
                     FileName = $"{Profile.Handle}.jpg",
@@ -100,11 +114,21 @@ namespace Instaview.ViewModels
                     ValidateNames = true,
                 };
 
-                if (dialog.ShowDialog() is true)
+                if (saveFileDialog.ShowDialog() is true)
                 {
-                    var path = dialog.FileName;
+                    var path = saveFileDialog.FileName;
                     await _instagramClient.DownloadProfilePictureAsync(Profile, path);
                 }
+            });
+
+            ShowAboutCommand = new RelayCommand(() =>
+            {
+                _dialogService.OpenDialog(new AboutDialogViewModel("About the App"));
+            });
+
+            ShowSettingsCommand = new RelayCommand(() =>
+            {
+                _dialogService.OpenDialog(new SettingsDialogViewModel("Settings"));
             });
         }
 
