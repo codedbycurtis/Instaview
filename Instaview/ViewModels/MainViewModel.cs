@@ -1,14 +1,11 @@
 ﻿using System.Windows.Input;
-using System.Collections.Generic;
 using static System.Environment;
 using Microsoft.Win32;
 using Instasharp;
 using Instasharp.Profiles;
-using Instasharp.Exceptions;
-using Instasharp.Search;
 using Instaview.ViewModels.Framework;
-using Instaview.Services;
 using Instaview.ViewModels.Dialogs;
+using Instaview.Utils;
 
 namespace Instaview.ViewModels
 {
@@ -17,7 +14,6 @@ namespace Instaview.ViewModels
         #region Members
 
         private readonly InstagramClient _instagramClient;
-        private readonly IDialogService _dialogService;
 
         #endregion
 
@@ -30,11 +26,18 @@ namespace Instaview.ViewModels
             set => SetProperty(ref _isProfileOnDisplay, value);
         }
 
-        private bool _profileHasWebsite;
-        public bool ProfileHasWebsite
+        private bool _profileHasFullName;
+        public bool ProfileHasFullName
         {
-            get => _profileHasWebsite;
-            set => SetProperty(ref _profileHasWebsite, value);
+            get => _profileHasFullName;
+            set => SetProperty(ref _profileHasFullName, value);
+        }
+
+        private bool _profileHasBusinessCategorySpecified;
+        public bool ProfileHasBusinessCategorySpecified
+        {
+            get => _profileHasBusinessCategorySpecified;
+            set => SetProperty(ref _profileHasBusinessCategorySpecified, value);
         }
 
         private bool _profileHasBio;
@@ -42,6 +45,13 @@ namespace Instaview.ViewModels
         {
             get => _profileHasBio;
             set => SetProperty(ref _profileHasBio, value);
+        }
+
+        private bool _profileHasWebsite;
+        public bool ProfileHasWebsite
+        {
+            get => _profileHasWebsite;
+            set => SetProperty(ref _profileHasWebsite, value);
         }
 
         private string _usernameOrUrl;
@@ -59,6 +69,8 @@ namespace Instaview.ViewModels
             {
                 SetProperty(ref _profile, value);
                 IsProfileOnDisplay = true;
+                ProfileHasFullName = !string.IsNullOrEmpty(Profile.FullName);
+                ProfileHasBusinessCategorySpecified = !string.IsNullOrEmpty(Profile.BusinessCategoryName);
                 ProfileHasBio = !string.IsNullOrEmpty(Profile.Bio);
                 ProfileHasWebsite = !string.IsNullOrEmpty(Profile.Website);
             }
@@ -75,9 +87,24 @@ namespace Instaview.ViewModels
 
         #region Commands
 
+        /// <summary>
+        /// Searches for the specified <see cref="UsernameOrUrl"/>.
+        /// </summary>
         public ICommand SearchCommand { get; }
+
+        /// <summary>
+        /// Downloads an Instagram account's profile picture.
+        /// </summary>
         public ICommand DownloadCommand { get; }
+
+        /// <summary>
+        /// Opens a new dialog window for the <see cref="AboutDialogViewModel"/>.
+        /// </summary>
         public ICommand ShowAboutCommand { get; }
+
+        /// <summary>
+        /// Opens a new dialog window for the <see cref="SettingsDialogViewModel"/>.
+        /// </summary>
         public ICommand ShowSettingsCommand { get; }
 
         #endregion
@@ -90,15 +117,12 @@ namespace Instaview.ViewModels
         public MainViewModel()
         {
             _instagramClient = new(App.Settings.SessionID);
-            _dialogService = new DialogService();
-
 
             SearchCommand = new RelayCommand(async () =>
             {
                 if (!string.IsNullOrEmpty(UsernameOrUrl))
                 {
-                    try { Profile = await _instagramClient.GetProfileMetadataAsync(UsernameOrUrl); }
-                    catch (InstasharpException ex) { _dialogService.OpenDialog(new ExceptionDialogViewModel("Something went wrong", ex.Message)); }
+                    Profile = await _instagramClient.GetProfileMetadataAsync(UsernameOrUrl);
                 }
             });
 
@@ -123,12 +147,12 @@ namespace Instaview.ViewModels
 
             ShowAboutCommand = new RelayCommand(() =>
             {
-                _dialogService.OpenDialog(new AboutDialogViewModel("About the App"));
+                Dialog.Service.OpenDialog(new AboutDialogViewModel("About"));
             });
 
             ShowSettingsCommand = new RelayCommand(() =>
             {
-                _dialogService.OpenDialog(new SettingsDialogViewModel("Settings"));
+                Dialog.Service.OpenDialog(new SettingsDialogViewModel("Settings"));
             });
         }
 

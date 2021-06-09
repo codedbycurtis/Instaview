@@ -1,0 +1,7 @@
+App icon designed by Curtis Caulfield.
+
+All other icons (excepting the 'Verified Badge') provided by Lucide Icons.
+You can find them here: https://lucide.dev/
+
+'Verified Badge' icon provided by Icons 8. (https://icons8.com/)
+You can get this specific icon here: https://icons8.com/icons/set/verified

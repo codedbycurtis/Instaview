@@ -1,6 +1,9 @@
 ﻿using System.IO;
 using System.Windows;
+using System.Reflection;
 using Instaview.Models;
+using Instaview.ViewModels.Dialogs;
+using Instaview.Utils;
 
 namespace Instaview
 {
@@ -15,6 +18,11 @@ namespace Instaview
         public static string Version { get; } = typeof(App).Assembly.GetName().Version.ToString(3);
 
         /// <summary>
+        /// The string representation of the Instasharp API's current major, minor, and build versions.
+        /// </summary>
+        public static string ApiVersion { get; } = AssemblyName.GetAssemblyName("Instasharp.dll").Version.ToString(3);
+
+        /// <summary>
         /// The title of this application.
         /// </summary>
         public static string Title { get; } = $"Instaview {Version}";
@@ -25,7 +33,7 @@ namespace Instaview
         public static string SettingsFilePath { get; } = "settings.json";
 
         /// <summary>
-        /// The application's global <see cref="Models.Settings"/>.
+        /// The application's global <see cref="Settings"/>.
         /// </summary>
 #pragma warning disable CA2211
         public static Settings Settings;
@@ -34,13 +42,15 @@ namespace Instaview
         /// <inheritdoc />
         protected override void OnStartup(StartupEventArgs e)
         {
-            // Check if a settings file exists, and if not, create one
-            if (!File.Exists(SettingsFilePath))
+            // Ensures that a DialogWindow is created for all types of exceptions
+            Application.Current.DispatcherUnhandledException += (_, e) =>
             {
-                Settings = new();
-                Settings.Save(SettingsFilePath);
-            }
-            else { Settings = Settings.Load(SettingsFilePath); }
+                Dialog.Service.OpenDialog(new ExceptionDialogViewModel("Something went wrong", e.Exception.Message));
+                e.Handled = true;
+            };
+
+            // Check if a settings file exists, and if not, create one
+            Settings = File.Exists(SettingsFilePath) ? Settings.Load(SettingsFilePath) : Settings.CreateNew(SettingsFilePath);
 
             base.OnStartup(e); // Perform default startup procedures
         }

@@ -2,11 +2,10 @@
 
 namespace Instaview.ViewModels.Framework
 {
-    public abstract class DialogBaseViewModel<T> : BaseViewModel
+    public abstract class DialogBaseViewModel : BaseViewModel
     {
         public string Title { get; set; }
         public string Message { get; set; }
-        public T DialogResult { get; set; }
 
         public DialogBaseViewModel() : this("", "") { }
         public DialogBaseViewModel(string title) : this(title, "") { }
@@ -16,11 +15,9 @@ namespace Instaview.ViewModels.Framework
             Message = message;
         }
 
-        public void CloseDialogWithResult(IDialogWindow dialog, T result)
+        public void CloseDialog(IDialogWindow window)
         {
-            DialogResult = result;
-
-            if (dialog is not null) { dialog.DialogResult = true; }
+            if (window is not null) { window.DialogResult = true; }
         }
     }
 }

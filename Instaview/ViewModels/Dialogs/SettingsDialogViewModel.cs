@@ -4,7 +4,7 @@ using Instaview.Services;
 
 namespace Instaview.ViewModels.Dialogs
 {
-    public class SettingsDialogViewModel : DialogBaseViewModel<DialogResult>
+    public class SettingsDialogViewModel : DialogBaseViewModel
     {
         #region Properties
 
@@ -19,6 +19,9 @@ namespace Instaview.ViewModels.Dialogs
 
         #region Commands
 
+        /// <summary>
+        /// Closes a <see cref="IDialogWindow"/>.
+        /// </summary>
         public ICommand CloseCommand { get; }
 
         #endregion
@@ -26,7 +29,7 @@ namespace Instaview.ViewModels.Dialogs
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of <see cref="SettingsDialogViewModel"/> with the specified <paramref name="title"/>.
+        /// Initializes a new instance of <see cref="SettingsDialogViewModel"/> and the specified <paramref name="title"/>.
         /// </summary>
         public SettingsDialogViewModel(string title) : base(title)
         {
@@ -39,7 +42,7 @@ namespace Instaview.ViewModels.Dialogs
                     App.Settings.SessionID = SessionId;
                     App.Settings.Save(App.SettingsFilePath);
                 }
-                CloseDialogWithResult(window, DialogResult.OK);
+                CloseDialog(window);
             });
         }
 

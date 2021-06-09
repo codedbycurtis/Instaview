@@ -5,13 +5,74 @@
         <ResourceDictionary Source="Colors.xaml"/>
     </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="GlobalMenuStyle" TargetType="{x:Type Menu}">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Cursor" Value="Hand"/>
+    <Style x:Key="TopLevelMenuItem" TargetType="{x:Type MenuItem}">
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type MenuItem}">
+                    <Border Padding="4, 0">
+                        <Border Padding="4"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="3">
+                            <Grid>
+                                <ContentPresenter Content="{TemplateBinding Header}" />
+                                <Popup HorizontalAlignment="Center"
+                                       IsOpen="{TemplateBinding IsSubmenuOpen}"
+                                       AllowsTransparency="True"
+                                       PopupAnimation="Slide">
+                                    <Border Padding="16">
+                                        <Border.Effect>
+                                            <DropShadowEffect BlurRadius="20"
+                                                              ShadowDepth="2"
+                                                              Direction="-90"
+                                                              Opacity="0.3"
+                                                              Color="{StaticResource ToolTipBackgroundColor}" />
+                                        </Border.Effect>
+                                        <Border Padding="0, 6"
+                                                CornerRadius="5"
+                                                BorderThickness="0"
+                                                Background="{StaticResource ProfilePanelSecondaryBrush}">
+                                            <StackPanel IsItemsHost="True" />
+                                        </Border>
+                                    </Border>
+                                </Popup>
+                            </Grid>
+                        </Border>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ButtonHoverBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ButtonPressBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
 
-    <Style x:Key="GlobalMenuItemStyle" TargetType="{x:Type MenuItem}">
-        
+    <Style x:Key="SubmenuItem" TargetType="{x:Type MenuItem}">
+        <Setter Property="Padding" Value="18, 6" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type MenuItem}">
+                    <Border Background="{TemplateBinding Background}" Padding="{TemplateBinding Padding}">
+                        <ContentPresenter Content="{TemplateBinding Header}" />
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsHighlighted" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ButtonHoverBrush}" />
+                        </Trigger>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Background" Value="{StaticResource ButtonPressBrush}" />
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
-    
+
 </ResourceDictionary>

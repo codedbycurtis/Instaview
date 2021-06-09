@@ -8,6 +8,7 @@ namespace Instaview.Converters
     /// <summary>
     /// Converts a <see cref="bool"/> to a <see cref="Visibility"/> value and vice-versa.
     /// </summary>
+    [ValueConversion(typeof(bool), typeof(Visibility))]
     public sealed class BoolToVisibilityConverter : IValueConverter
     {
         public static BoolToVisibilityConverter Instance { get; } = new();

@@ -6,16 +6,16 @@
     </ResourceDictionary.MergedDictionaries>
     
     <Style x:Key="GlobalTextBlockStyle" TargetType="{x:Type TextBlock}">
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
     </Style>
 
     <Style x:Key="GlobalTextBoxStyle" TargetType="{x:Type TextBox}">
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="BorderThickness" Value="0"/>
-        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}"/>
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Foreground" Value="{StaticResource TextPrimaryBrush}" />
     </Style>
 
-    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource GlobalTextBlockStyle}"/>
-    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource GlobalTextBoxStyle}"/>
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource GlobalTextBlockStyle}" />
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource GlobalTextBoxStyle}" />
 
 </ResourceDictionary>

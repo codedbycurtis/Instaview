@@ -3,15 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Instaview.Views.Dialogs"
              xmlns:dialogViewModels="clr-namespace:Instaview.ViewModels.Dialogs"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=dialogViewModels:ExceptionDialogViewModel}">
 
     <Grid>
-        <TextBlock Text="{Binding Message}"
-                   TextWrapping="Wrap"
-                   FontSize="14"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <ScrollViewer Grid.Row="0"
+                      VerticalScrollBarVisibility="Auto">
+            <TextBlock Text="{Binding Message}"
+                       TextWrapping="Wrap"
+                       FontSize="14" />
+        </ScrollViewer>
         <Button Content="Close"
                 Command="{Binding CloseCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
@@ -19,6 +25,7 @@
                 TextBlock.FontSize="18"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Padding="6"/>
+                Padding="6"
+                Grid.Row="1" />
     </Grid>
 </UserControl>

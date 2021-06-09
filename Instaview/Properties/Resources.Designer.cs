@@ -81,6 +81,21 @@ namespace Instaview.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to App icon designed by Curtis Caulfield.
+        ///
+        ///All other icons (excepting the &apos;Verified Badge&apos;) provided by Lucide Icons.
+        ///You can find them here: https://lucide.dev/
+        ///
+        ///&apos;Verified Badge&apos; icon provided by Icons 8. (https://icons8.com/)
+        ///You can get this specific icon here: https://icons8.com/icons/set/verified.
+        /// </summary>
+        internal static string attributions {
+            get {
+                return ResourceManager.GetString("attributions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
         internal static byte[] download {
@@ -93,9 +108,19 @@ namespace Instaview.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] Instaview_Logo {
+        internal static byte[] favicon {
             get {
-                object obj = ResourceManager.GetObject("Instaview_Logo", resourceCulture);
+                object obj = ResourceManager.GetObject("favicon", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] LUCIDE_LICENSE {
+            get {
+                object obj = ResourceManager.GetObject("LUCIDE_LICENSE", resourceCulture);
                 return ((byte[])(obj));
             }
         }

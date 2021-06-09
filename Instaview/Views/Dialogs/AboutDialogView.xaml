@@ -2,12 +2,27 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Instaview.Views.Dialogs"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Instaview"
              xmlns:dialogViewModels="clr-namespace:Instaview.ViewModels.Dialogs"
              mc:Ignorable="d"
              d:DataContext="{d:DesignInstance Type=dialogViewModels:AboutDialogViewModel}">
     <Grid>
+        <TextBlock FontSize="16">
+            <Run Text="Developed by: Curtis Caulfield" />
+            <LineBreak />
+            <Run Text="(Github: " /><Hyperlink NavigateUri="https://www.github.com/codedbycurtis"
+                                               Command="{Binding OpenHyperlinkCommand}"
+                                               CommandParameter="{Binding RelativeSource={RelativeSource Mode=Self}, Path=NavigateUri}">codedbycurtis</Hyperlink><Run Text=")" />
+            <LineBreak />
+            <LineBreak />
+            <Run Text="App Version: " /><Run Text="{x:Static local:App.Version}" />
+            <LineBreak />
+            <Run Text="Instasharp API Version: " /><Run Text="{x:Static local:App.ApiVersion}" />
+            <LineBreak />
+            <LineBreak />
+            <Run Text="© Curtis Caulfield 2021. All rights reserved." />
+        </TextBlock>
         <Button Content="Close"
                 Command="{Binding CloseCommand}"
                 CommandParameter="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=Window}}"
@@ -15,6 +30,6 @@
                 TextBlock.FontSize="18"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Bottom"
-                Padding="6"/>
+                Padding="6" />
     </Grid>
 </UserControl>

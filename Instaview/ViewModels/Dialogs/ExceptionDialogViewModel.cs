@@ -4,10 +4,13 @@ using Instaview.Services;
 
 namespace Instaview.ViewModels.Dialogs
 {
-    public class ExceptionDialogViewModel : DialogBaseViewModel<DialogResult>
+    public class ExceptionDialogViewModel : DialogBaseViewModel
     {
         #region Commands
 
+        /// <summary>
+        /// Closes a <see cref="IDialogWindow"/>.
+        /// </summary>
         public ICommand CloseCommand { get; }
 
         #endregion
@@ -19,7 +22,7 @@ namespace Instaview.ViewModels.Dialogs
         /// </summary>
         public ExceptionDialogViewModel(string title, string message) : base(title, message)
         {
-            CloseCommand = new RelayCommand<IDialogWindow>((window) => { CloseDialogWithResult(window, DialogResult.OK); });
+            CloseCommand = new RelayCommand<IDialogWindow>((window) => { CloseDialog(window); });
         }
 
         #endregion

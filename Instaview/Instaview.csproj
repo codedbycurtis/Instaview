@@ -7,33 +7,32 @@
     <Copyright>Copyright © Curtis Caulfield 2021</Copyright>
     <Company>Instaview</Company>
     <Authors>Curtis Caulfield</Authors>
-    <Description></Description>
+    <Description>Allows quick-and-easy access to an Instagram account's publicly-visible profile information.</Description>
     <Product>Instaview</Product>
     <PackageId>Instaview</PackageId>
-    <ApplicationIcon>Images\Icon\Instaview Logo.ico</ApplicationIcon>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <PackageProjectUrl>https://www.github.com/codedbycurtis/Instaview</PackageProjectUrl>
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="favicon.ico" />
     <None Remove="Images\arrow-right.png" />
     <None Remove="Images\download.png" />
-    <None Remove="Images\Icon\Instaview Logo.ico" />
     <None Remove="Images\lock.png" />
     <None Remove="Images\menu.png" />
     <None Remove="Images\verified.png" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Instasharp\Instasharp\Instasharp.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <PackageReference Include="codedbycurtis-Instasharp" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="favicon.ico" />
     <Resource Include="Images\arrow-right.png" />
     <Resource Include="Images\download.png" />
-    <Resource Include="Images\Icon\Instaview Logo.ico" />
     <Resource Include="Images\lock.png" />
     <Resource Include="Images\menu.png" />
     <Resource Include="Images\verified.png" />
@@ -52,6 +51,15 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="attributions.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="LUCIDE-LICENSE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
