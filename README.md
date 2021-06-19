@@ -15,5 +15,8 @@ Of course, the main attraction however, is the ability to **_view_** and **_down
 - Get their full name, bio, and website - if they have provided them.
 - See how many people they follow, are followed by, and how many posts they have.
 
-## Showcase
+### Showcase
 ![Instaview Showcase](.screenshots/showcase.PNG)
+
+## System Requirements
+- The **.NET 5.0 Runtime**, which can be downloaded [here](https://dotnet.microsoft.com/download/dotnet/5.0/runtime).
