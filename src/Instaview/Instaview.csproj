@@ -13,6 +13,7 @@
     <ApplicationIcon>favicon.ico</ApplicationIcon>
     <PackageProjectUrl>https://www.github.com/codedbycurtis/Instaview</PackageProjectUrl>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>
