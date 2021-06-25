@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using CodedByCurtis.MVVM.ViewModel.Framework;
 using Instaview.ViewModels.Framework;
 using Instaview.Services;
 
@@ -6,9 +7,17 @@ namespace Instaview.ViewModels.Dialogs
 {
     public class SettingsDialogViewModel : DialogBaseViewModel
     {
-        #region Properties
+        #region Fields
 
         private string _sessionId;
+
+        #endregion
+
+        #region Properties
+
+        /// <summary>
+        /// The application's global SessionID.
+        /// </summary>
         public string SessionId
         {
             get => _sessionId;

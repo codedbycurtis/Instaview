@@ -7,6 +7,9 @@ namespace Instaview.Views.Dialogs
     /// </summary>
     public partial class AboutDialogView : UserControl
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AboutDialogView"/> class.
+        /// </summary>
         public AboutDialogView() => InitializeComponent();
     }
 }

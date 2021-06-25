@@ -1,4 +1,5 @@
 ﻿using System.Windows.Input;
+using CodedByCurtis.MVVM.ViewModel.Framework;
 using Instaview.ViewModels.Framework;
 using Instaview.Services;
 

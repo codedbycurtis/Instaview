@@ -15,22 +15,22 @@ namespace Instaview
         /// <summary>
         /// The string representation of this application's current major, minor, and build versions.
         /// </summary>
-        public static string Version { get; } = typeof(App).Assembly.GetName().Version.ToString(3);
+        public static string Version => typeof(App).Assembly.GetName().Version.ToString(3);
 
         /// <summary>
         /// The string representation of the Instasharp API's current major, minor, and build versions.
         /// </summary>
-        public static string ApiVersion { get; } = AssemblyName.GetAssemblyName("Instasharp.dll").Version.ToString(3);
+        public static string ApiVersion => AssemblyName.GetAssemblyName("Instasharp.dll").Version.ToString(3);
 
         /// <summary>
         /// The title of this application.
         /// </summary>
-        public static string Title { get; } = $"Instaview {Version}";
+        public static string Title => $"Instaview {Version}";
 
         /// <summary>
         /// The normalized path to the application's settings file.
         /// </summary>
-        public static string SettingsFilePath { get; } = "settings.json";
+        public static string SettingsFilePath => "settings.json";
 
         /// <summary>
         /// The application's global <see cref="Settings"/>.

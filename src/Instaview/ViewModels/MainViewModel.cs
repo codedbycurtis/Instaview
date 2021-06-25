@@ -1,67 +1,98 @@
 ﻿using System.Windows.Input;
 using static System.Environment;
 using Microsoft.Win32;
+using CodedByCurtis.MVVM.ViewModel.Framework;
 using Instasharp;
 using Instasharp.Profiles;
-using Instaview.ViewModels.Framework;
 using Instaview.ViewModels.Dialogs;
 using Instaview.Utils;
 
 namespace Instaview.ViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : ViewModelBase
     {
-        #region Members
+        #region Fields
 
+        private bool _isProfileOnDisplay;
+        private bool _profileHasFullName;
+        private bool _profileHasBusinessCategorySpecified;
+        private bool _profileHasBio;
+        private bool _profileHasWebsite;
+        private bool _extendedInformationAvailable;
+        private string _usernameOrUrl;
+        private Profile _profile;
         private readonly InstagramClient _instagramClient;
 
         #endregion
 
         #region Properties
 
-        private bool _isProfileOnDisplay;
+        /// <summary>
+        /// Is the profile panel visible?
+        /// </summary>
         public bool IsProfileOnDisplay
         {
             get => _isProfileOnDisplay;
             set => SetProperty(ref _isProfileOnDisplay, value);
         }
 
-        private bool _profileHasFullName;
+        /// <summary>
+        /// Does the profile have a FullName property?
+        /// </summary>
         public bool ProfileHasFullName
         {
             get => _profileHasFullName;
             set => SetProperty(ref _profileHasFullName, value);
         }
 
-        private bool _profileHasBusinessCategorySpecified;
+        /// <summary>
+        /// Is the profile's Business Category specified?
+        /// </summary>
         public bool ProfileHasBusinessCategorySpecified
         {
             get => _profileHasBusinessCategorySpecified;
             set => SetProperty(ref _profileHasBusinessCategorySpecified, value);
         }
 
-        private bool _profileHasBio;
+        /// <summary>
+        /// Does the profile have a bio?
+        /// </summary>
         public bool ProfileHasBio
         {
             get => _profileHasBio;
             set => SetProperty(ref _profileHasBio, value);
         }
 
-        private bool _profileHasWebsite;
+        /// <summary>
+        /// Does the profile have a linked website?
+        /// </summary>
         public bool ProfileHasWebsite
         {
             get => _profileHasWebsite;
             set => SetProperty(ref _profileHasWebsite, value);
         }
 
-        private string _usernameOrUrl;
+        /// <summary>
+        /// Is the extended information panel visible?
+        /// </summary>
+        public bool ExtendedInformationAvailable
+        {
+            get => _extendedInformationAvailable;
+            set => SetProperty(ref _extendedInformationAvailable, value);
+        }
+
+        /// <summary>
+        /// The user-specified search query.
+        /// </summary>
         public string UsernameOrUrl
         {
             get => _usernameOrUrl;
             set => SetProperty(ref _usernameOrUrl, value);
         }
 
-        private Profile _profile;
+        /// <summary>
+        /// The profile searched for by the user.
+        /// </summary>
         public Profile Profile
         {
             get => _profile;
@@ -70,18 +101,17 @@ namespace Instaview.ViewModels
                 SetProperty(ref _profile, value);
                 IsProfileOnDisplay = true;
                 ProfileHasFullName = !string.IsNullOrEmpty(Profile.FullName);
-                ProfileHasBusinessCategorySpecified = !string.IsNullOrEmpty(Profile.BusinessCategoryName);
                 ProfileHasBio = !string.IsNullOrEmpty(Profile.Bio);
                 ProfileHasWebsite = !string.IsNullOrEmpty(Profile.Website);
+                ProfileHasBusinessCategorySpecified = !string.IsNullOrEmpty(Profile.BusinessCategoryName);
+                if (ProfileHasBio || ProfileHasWebsite)
+                {
+                    ExtendedInformationAvailable = true;
+                    return;
+                }
+                ExtendedInformationAvailable = false;
             }
         }
-
-        //private IReadOnlyList<ProfileSearchResult> _requestedProfiles;
-        //public IReadOnlyList<ProfileSearchResult> RequestedProfiles
-        //{
-        //    get => _requestedProfiles;
-        //    set => SetProperty(ref _requestedProfiles, value);
-        //}
 
         #endregion
 
@@ -112,7 +142,7 @@ namespace Instaview.ViewModels
         #region Constructor
 
         /// <summary>
-        /// Initializes a new instance of <see cref="MainViewModel"/>.
+        /// Initializes a new instance of the <see cref="MainViewModel"/> class.
         /// </summary>
         public MainViewModel()
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Windows.Input;
+using CodedByCurtis.MVVM.ViewModel.Framework;
 using Instaview.Services;
 using Instaview.ViewModels.Framework;
 
